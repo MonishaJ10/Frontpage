@@ -333,3 +333,364 @@ styleUrl: './header.component.css'
 
 export class HeaderComponent {
 }
+
+ANGULAR
+
+Step 1: Angular CLI commands to create the project and components
+bash
+Copy
+Edit
+# Create a new Angular standalone project without routing and skip tests if you want
+ng new nextgen-carousel --standalone --skip-tests
+
+cd nextgen-carousel
+
+# Generate header component (standalone)
+ng generate component header --standalone
+
+# Generate login component (standalone)
+ng generate component login --standalone
+
+# The app component is already generated as standalone, edit it directly
+Step 2: Project Structure
+pgsql
+Copy
+Edit
+nextgen-carousel/
+├── src/
+│   ├── app/
+│   │   ├── header/
+│   │   │   ├── header.component.ts
+│   │   │   ├── header.component.html
+│   │   │   ├── header.component.css
+│   │   ├── login/
+│   │   │   ├── login.component.ts
+│   │   │   ├── login.component.html
+│   │   │   ├── login.component.css
+│   │   ├── app.component.ts
+│   │   ├── app.component.html
+│   │   ├── app.component.css
+│   ├── assets/
+│   │   └── LOGO.png
+│   ├── index.html
+│   └── main.ts
+├── angular.json
+└── package.json
+Step 3: Code for each file
+1. header.component.ts
+ts
+Copy
+Edit
+import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  imports: [NgOptimizedImage],
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
+})
+export class HeaderComponent {}
+2. header.component.html
+html
+Copy
+Edit
+<div class="top-bar" role="banner" aria-label="Top navigation bar">
+  <img ngSrc="assets/LOGO.png" width="150" height="40" alt="BNP LOGO" priority />
+  <span class="italic font-semibold text-2xl">NextGen Recon</span>
+</div>
+3. header.component.css
+css
+Copy
+Edit
+.top-bar {
+  background-color: #1a4d2e;
+  width: 100%;
+  border-radius: 0.5rem 0.5rem 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  user-select: none;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px #2e7d32;
+  font-size: 1.125rem;
+  font-style: italic;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.top-bar img {
+  width: auto;
+  height: 40px;
+  margin-right: 10px;
+}
+4. login.component.ts
+ts
+Copy
+Edit
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+})
+export class LoginComponent {}
+5. login.component.html
+html
+Copy
+Edit
+<div class="login-box">
+  <h2>Login</h2>
+  <form>
+    <label for="uid">UID</label>
+    <input type="text" id="uid" placeholder="Enter UID" required />
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter Password" required />
+    <button type="submit">Login</button>
+    <p class="sso-login">(or) Login with <a href="#">SSO</a></p>
+  </form>
+</div>
+6. login.component.css
+css
+Copy
+Edit
+.login-box {
+  width: 100%;
+  max-width: 320px;
+  background: rgba(34, 34, 34, 0.8);
+  padding: 40px;
+  border-radius: 12px;
+  color: #eee;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+}
+
+.login-box h2 {
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: #f0f0f0;
+  text-align: center;
+}
+
+.login-box label {
+  display: block;
+  margin-bottom: 6px;
+  color: #bbb;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1.5px solid #444;
+  background: #333;
+  color: #eee;
+  font-size: 1rem;
+}
+
+.login-box input:focus {
+  border-color: #1e90ff;
+  outline: none;
+  background: #2a2a2a;
+}
+
+.login-box button {
+  width: auto;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  border-radius: 20px;
+  margin: 10px auto 0;
+  display: block;
+  background: #1e90ff;
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-box button:hover {
+  background: #0f6adf;
+}
+
+.login-box p.sso-login {
+  text-align: center;
+  margin-top: 15px;
+  color: #bbb;
+  font-size: 0.9rem;
+}
+
+.login-box p.sso-login a {
+  color: #1e90ff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-box p.sso-login a:hover {
+  text-decoration: underline;
+}
+7. app.component.ts
+ts
+Copy
+Edit
+import { Component } from '@angular/core';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [HeaderComponent, LoginComponent],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  rotationPaused = false;
+  selectedIndex: number | null = null;
+
+  items = ['Socrates-NextGen', 'Documentations', 'Tutorials', 'Support', 'Community', 'Blog'];
+
+  toggleSelection(index: number) {
+    if (this.selectedIndex === index) {
+      // Deselect, resume rotation
+      this.selectedIndex = null;
+      this.rotationPaused = false;
+    } else {
+      this.selectedIndex = index;
+      this.rotationPaused = true;
+    }
+  }
+}
+8. app.component.html
+html
+Copy
+Edit
+<app-header></app-header>
+
+<div class="container">
+  <div class="carousel-wrapper">
+    <div
+      class="carousel"
+      [class.paused]="rotationPaused"
+      [style.transform]="'rotateY(' + rotationDegree + 'deg)'"
+      (animationiteration)="onAnimationIteration()"
+      [style.animationPlayState]="rotationPaused ? 'paused' : 'running'"
+      [style.animation]="rotationPaused ? 'none' : 'rotate 20s linear infinite'"
+    >
+      <div
+        *ngFor="let item of items; let i = index"
+        class="carousel-item"
+        [class.selected]="selectedIndex === i"
+        [style.transform]="'rotateY(' + i * (360 / items.length) + 'deg) translateZ(250px)'"
+        (click)="toggleSelection(i)"
+      >
+        {{ item }}
+      </div>
+    </div>
+  </div>
+
+  <app-login></app-login>
+</div>
+9. app.component.css
+css
+Copy
+Edit
+body, html {
+  margin: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #121212, #1e1e1e);
+  color: white;
+}
+
+.container {
+  display: flex;
+  max-width: 1000px;
+  width: 90%;
+  margin: 2rem auto;
+  height: 520px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.carousel-wrapper {
+  flex: 1;
+  perspective: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: visible;
+  position: relative;
+}
+
+.carousel {
+  width: 500px;
+  height: 320px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotate 20s linear infinite;
+  cursor: pointer;
+}
+
+.carousel.paused {
+  animation-play-state: paused !important;
+}
+
+.carousel-item {
+  position: absolute;
+  width: 180px;
+  height: 160px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #eee;
+  transition: transform 0.3s, background 0.3s, border-color 0.3s;
+  backdrop-filter: blur(4px);
+  user-select: none;
+}
+
+.carousel-item:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.05) translateZ(250px);
+  z-index: 2;
+}
+
+.carousel-item.selected {
+  border: 3px solid #1e90ff;
+  background: rgba(30, 144, 255, 0.3);
+  z-index: 3;
+  transform: scale(1.1) translateZ(250px) !important;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+app-login {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
