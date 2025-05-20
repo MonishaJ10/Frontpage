@@ -527,6 +527,321 @@ I
 
 
 6. login.component.css
+.carousel-wrapper {
+
+flex: 1;
+
+perspective: 1000px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+background:
+
+rgba(255, 255, 255, 0.05);
+
+overflow: hidden;
+
+}
+
+.carousel {
+
+width: 220px;
+
+height: 320px;
+
+position: relative;
+
+transform-style: preserve-3d;
+
+animation: rotate 20s infinite linear;
+
+}
+
+I
+
+.carousel.paused {
+
+animation-play-state: paused;
+
+}
+
+
+.carousel div {
+
+position: absolute;
+
+width: 180px;
+
+height: 160px;
+
+background: rgba(255, 255, 255, 0.08);
+
+border: 1px solid Irgba(255, 255, 255, 0.15);
+
+border-radius: 10px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+font-size: 1.1rem;
+
+font-weight: bold;
+
+color: #eee;
+
+box-shadow: 0 8px 32px
+
+Irgba(0,0,0,0.25);
+
+cursor: pointer;
+
+transition: transform 0.3s, background 0.3s;
+
+backdrop-filter: blur (4px);
+
+text-align: center;
+
+padding: 10px;
+
+
+}
+
+.carousel div:hover {
+
+background: Irgba(255, 255, 255, 0.15);
+
+transform: scale(1.05);
+
+}
+
+carousel div.selected {
+
+border: 2px solid #1e90ff;
+
+background:rgba(30, 144, 255, 0.15);
+
+}
+
+carousel div:nth-child(1) {
+
+transform: rotateY(Odeg) translateZ(180px);
+
+}
+
+.carousel div:nth-child(2) {
+
+transform: rotateY(120deg) translateZ (180px);
+
+}
+
+-carousel div:nth-child(3) {
+
+transform: rotateY(240deg) translateZ (180px);
+
+}
+
+I
+
+@keyframes rotate {
+
+from { transform: rotateY(0deg); }
+
+to { transform: rotateY(360deg); }
+
+}
+
+.login-wrapper {
+
+height: 100vh;
+
+width: 100vw;
+
+flex: 1;
+
+padding: 40px;
+
+background: rgba(34, 34, 34, 0.8)
+
+padding: 40px;
+
+background: rgba(34, 34, 34, 0.8);
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+}
+
+.login-box {
+
+height: 100vh;
+
+width: 100vw;
+
+max-width: 320px;
+
+}
+
+.login-box h2 {
+
+margin-bottom: 25px;
+
+margin-top: 25px;
+
+font-weight: 700;
+
+color: #fefefe;
+
+text-align: center;
+
+}
+
+login-box label {
+
+display: block;
+
+margin-bottom: 6px;
+
+color: #bbb;
+
+}
+
+login-box input {
+
+width: 100%;
+
+padding: 12px;
+
+margin-bottom: 20px;
+
+border-radius: 8px;
+
+border: 1.5px solid #444;
+
+background:#333;
+
+color: #eee;
+
+font-size: 1rem;
+
+}
+
+.login-box input:focus {
+
+border-color: #1e90ff;
+
+outline: none;
+
+background: #2a2a2a;
+
+}
+
+login-box button:hover {
+
+| background: #0f6adf;
+
+}
+
+login-box p.sso-login {
+
+text-align: center;
+
+margin-top: 15px;
+
+color: #bbb;
+
+font-size: 0.9rem;
+}
+
+.login-box p.sso-login a {
+
+color: #1e90ff;
+
+text-decoration: none;
+
+cursor: pointer;
+
+}
+
+login-box button {
+
+width: auto;
+
+padding: 10px 20px;
+
+font-size: 0.95rem;
+
+border-radius: 20px;
+
+margin: 10px auto;
+
+background:#1e90ff;
+
+color: white;
+
+border: none;
+
+font-weight: 600;
+
+cursor: pointer;
+
+transition: background 0.3s ease;
+
+align-self: center;
+
+}
+
+.login-box p.sso-login a:hover {
+
+text-decoration: underline;
+
+}
+
+@media (max-width: 800px) {
+
+.container {
+
+flex-direction: column;
+
+height: auto;
+}
+.carousel-wrapper, login-wrapper {
+
+width: 100%;
+
+height: 300px;
+
+.carousel-wrapper {
+
+padding: 20px;
+
+}
+
+.carousel {
+
+width: 180px;
+
+height: 220px;
+
+}
+
+carousel div {
+
+width: 140px;
+
+height: 120px;
+
+}
+
 
 
 7. app.component.ts
