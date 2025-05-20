@@ -451,3 +451,55 @@ export class AppComponent {}
 
 9. app.component.css
 
+body, html {
+
+margin: 0;
+
+height: 100%;
+
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+background: linear-gradient(135deg, #121212, #1e1e1e);
+
+color: white;
+
+}
+
+.container {
+
+display: flex;
+
+max-width: 1000px;
+
+width: 90%;
+
+margin: 2rem auto;
+
+height: 520px;
+
+border-radius: 20px;
+
+overflow: hidden;
+
+box-shadow: 0 0 25px Irgba(0, 0, 0, 0.6);
+
+background: rgba(255, 255, 255, 0.05);
+
+backdrop-filter: blur (10px);
+
+}
+
+app-login
+
+flex: 1;
+
+display:
+
+flex;
+
+align-items: center;
+
+justify-content: center;
+
+}
+
