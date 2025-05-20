@@ -693,4 +693,75 @@ app-login {
   align-items: center;
   justify-content: center;
 }
+-------------------------------
+corrections 
+
+1. app.component.ts
+
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  items = ['Socrates-NextGen', 'Documentations', 'Tutorials'];
+  rotationDegree = 0;
+  selectedIndex: number | null = null;
+
+  onAnimationIteration() {
+    this.rotationDegree = (this.rotationDegree + 120) % 360;
+  }
+
+  toggleSelection(index: number) {
+    this.selectedIndex = this.selectedIndex === index ? null : index;
+  }
+
+  getTransformStyle(i: number): string {
+    return `rotateY(${i * 120}deg) translateZ(180px)`;
+  }
+}
+
+
+---
+
+2. app.component.html
+
+<div class="container">
+  <div class="carousel-wrapper">
+    <div
+      class="carousel"
+      [style.transform]="'rotateY(' + rotationDegree + 'deg)'"
+      (animationiteration)="onAnimationIteration()"
+      [class.paused]="selectedIndex !== null"
+    >
+      <div
+        *ngFor="let item of items; let i = index"
+        [style.transform]="getTransformStyle(i)"
+        (click)="toggleSelection(i)"
+        [class.selected]="selectedIndex === i"
+      >
+        {{ item }}
+      </div>
+    </div>
+  </div>
+
+  <div class="login-wrapper">
+    <div class="login-box">
+      <h2>Login</h2>
+      <form>
+        <label for="uid">UID</label>
+        <input type="text" id="uid" placeholder="Enter UID" required />
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter Password" required />
+        <button type="submit">Login</button>
+        <p class="sso-login">(or) Login with <a href="#">SSO</a></p>
+      </form>
+    </div>
+  </div>
+</div>
 
