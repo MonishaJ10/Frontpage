@@ -765,3 +765,284 @@ export class AppComponent {
   </div>
 </div>
 
+
+----------------------------
+Yes, you can absolutely convert this entire HTML + CSS + JavaScript into one standalone Angular component. Here's how you can implement this as a single Angular component (without splitting into multiple files):
+
+
+---
+
+Step 1: Create the Component
+
+Run:
+
+ng generate component carousel-login --standalone
+
+
+---
+
+Step 2: Replace the content of carousel-login.component.ts
+
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-carousel-login',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="container">
+      <div class="carousel-wrapper">
+        <div class="carousel" [class.paused]="selectedIndex !== null">
+          <div
+            *ngFor="let item of items; let i = index"
+            [class.selected]="selectedIndex === i"
+            (click)="toggleSelection(i)"
+            [style.transform]="getTransform(i)"
+          >
+            {{ item }}
+          </div>
+        </div>
+      </div>
+      <div class="login-wrapper">
+        <div class="login-box">
+          <h2>Login</h2>
+          <form>
+            <label for="uid">UID</label>
+            <input type="text" id="uid" placeholder="Enter UID" required />
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter Password" required />
+            <button type="submit">Login</button>
+            <p class="sso-login">(or) Login with <a href="#">SSO</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [`
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #121212, #1e1e1e);
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      width: 90%;
+      max-width: 1000px;
+      height: 520px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      margin: auto;
+      margin-top: 40px;
+    }
+
+    .carousel-wrapper {
+      flex: 1;
+      perspective: 1000px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+    }
+
+    .carousel {
+      width: 220px;
+      height: 320px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotate 20s infinite linear;
+    }
+
+    .carousel.paused {
+      animation-play-state: paused;
+    }
+
+    .carousel div {
+      position: absolute;
+      width: 180px;
+      height: 160px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #eee;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+      backdrop-filter: blur(4px);
+      text-align: center;
+      padding: 10px;
+    }
+
+    .carousel div:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+
+    .carousel div.selected {
+      border: 2px solid #1e90ff;
+      background: rgba(30, 144, 255, 0.15);
+    }
+
+    @keyframes rotate {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(360deg); }
+    }
+
+    .login-wrapper {
+      flex: 1;
+      padding: 40px;
+      background: rgba(34, 34, 34, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .login-box h2 {
+      margin-bottom: 25px;
+      font-weight: 700;
+      color: #f0f0f0;
+      text-align: center;
+    }
+
+    .login-box label {
+      display: block;
+      margin-bottom: 6px;
+      color: #bbb;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1.5px solid #444;
+      background: #333;
+      color: #eee;
+      font-size: 1rem;
+    }
+
+    .login-box input:focus {
+      border-color: #1e90ff;
+      outline: none;
+      background: #2a2a2a;
+    }
+
+    .login-box button {
+      width: auto;
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      border-radius: 20px;
+      margin: 10px auto;
+      background: #1e90ff;
+      color: white;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-box button:hover {
+      background: #0f6adf;
+    }
+
+    .login-box p.sso-login {
+      text-align: center;
+      margin-top: 15px;
+      color: #bbb;
+      font-size: 0.9rem;
+    }
+
+    .login-box p.sso-login a {
+      color: #1e90ff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .login-box p.sso-login a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .carousel-wrapper, .login-wrapper {
+        width: 100%;
+        height: 300px;
+      }
+
+      .carousel-wrapper {
+        padding: 20px;
+      }
+
+      .carousel {
+        width: 180px;
+        height: 220px;
+      }
+
+      .carousel div {
+        width: 140px;
+        height: 120px;
+      }
+    }
+  `]
+})
+export class CarouselLoginComponent {
+  items = ['Socrates-NextGen', 'Documentations', 'Tutorials'];
+  selectedIndex: number | null = null;
+
+  toggleSelection(index: number): void {
+    this.selectedIndex = this.selectedIndex === index ? null : index;
+  }
+
+  getTransform(index: number): string {
+    const angle = index * 120;
+    return `rotateY(${angle}deg) translateZ(180px)`;
+  }
+}
+
+
+---
+
+Step 3: Use it in app.component.ts (or wherever needed)
+
+If you're using the standalone app structure:
+
+import { Component } from '@angular/core';
+import { CarouselLoginComponent } from './carousel-login/carousel-login.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CarouselLoginComponent],
+  template: `<app-carousel-login></app-carousel-login>`
+})
+export class AppComponent {}
+
+
+---
+
+This will replicate your entire HTML/CSS/JS design inside one Angular component with full 3D carousel + login form styling + interactivity.
+
+Let me know if you want to split it into separate carousel/login components or add real login logic later!
+
+
