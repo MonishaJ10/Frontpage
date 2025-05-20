@@ -422,7 +422,65 @@ export class HeaderComponent {}
 4. login.component.ts
 
 
+
+
 5. login.component.html
+
+<div class="container">
+
+<div class="carousel-wrapper">
+
+<div class="carousel" [class.paused]="selectedIndex !== null">
+
+<div
+
+*ngFor="let item of items; let i index"
+
+[class.selected]="selectedIndex === i"
+
+(click)="toggleSelection(i)"
+
+[style.transform]="getTransform(i)"
+
+{{ item }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="login-wrapper">
+
+<div class="login-box">
+
+<h2>Login</h2>
+
+<form>
+
+<label for="uid">UID</label>
+
+>
+
+I
+
+<input type="text" id="uid" placeholder="Enter UID" required />
+
+<label for="password">Password</label>
+
+<input type="password" id="password" placeholder="Enter Password" required />
+
+<button type="submit">Login</button>
+
+<p class="sso-login">(or) Login with <a href="#">SSO</a></p>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
 
 
 6. login.component.css
