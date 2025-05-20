@@ -420,6 +420,49 @@ export class HeaderComponent {}
 }
 
 4. login.component.ts
+import { Component } from '@angular/core';
+
+import { CommonModule } from '@angular/common';
+
+import { FormsModule } from '@angular/forms';
+
+I
+
+}
+
+@Component({
+
+selector: 'app-login',
+
+standalone: true,
+
+imports: [CommonModule, Forms Module],
+
+templateUrl: './login.component.html',
+
+styleUrl: './login.component.css'
+
+})
+
+export class LoginComponent {
+
+items = ['Socrates-NextGen', 'Documentations', 'Tutorials'];
+
+selectedIndex: number | null = null;
+
+toggleSelection(index: number): void {
+
+this.selectedIndex = this.selectedIndex === index ? null: index;
+
+}
+
+getTransform(index: number): string {
+
+const angle index * 120;
+
+return rotateY($(angle)deg) translateZ(180px);
+
+}
 
 
 
