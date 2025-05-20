@@ -918,4 +918,281 @@ align-items: center;
 justify-content: center;
 
 }
+------------------------------------------------------------------------------------------
+shades 
+login.component.html
+<div class="container">
+  <div class="carousel-wrapper">
+    <div class="carousel" [class.paused]="selectedIndex !== null">
+      <div
+        *ngFor="let item of items; let i = index"
+        [class.selected]="selectedIndex === i"
+        (click)="toggleSelection(i)"
+        [style.transform]="getTransform(i)"
+      >
+        {{ item }}
+      </div>
+    </div>
+  </div>
 
+  <div class="switch">
+    <div *ngIf="isLogin" class="Login">
+      <div class="title">Login</div>
+      <div class="item">Reconciliation</div>
+      <div class="item">Trade matching</div>
+
+      <div class="wrapper">
+        <input
+          type="text"
+          placeholder="UID"
+          class="betterOutline"
+          [(ngModel)]="uid"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          class="betterOutline"
+          [(ngModel)]="password"
+        />
+      </div>
+
+      <div class="item">
+        <button (click)="onLogin()">Submit</button>
+      </div>
+
+      <div class="item">(or)</div>
+
+      <div class="item" style="font-size: 0.8em; color: black;">
+        Login with
+        <span class="LoginSign" (click)="onSwitch()">&nbsp;SSO</span>
+      </div>
+    </div>
+
+    <div *ngIf="!isLogin" class="Login">
+      <div class="title">Sign Up</div>
+      <div class="item">Connect, create, and match</div>
+      <div class="item">All in one place</div>
+
+      <div class="item">
+        <button>SSO Login</button>
+      </div>
+
+      <div class="item" style="font-size: 0.8em; color: black;">
+        Have account?
+        <span class="LoginSign" (click)="onSwitch()">&nbsp;Login</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+css
+background: linear-gradient(
+  to bottom,
+  rgba(0, 0, 0, 0.95) 0%,
+  rgba(40, 40, 40, 0.8) 50%,
+  rgba(230, 230, 230, 0.1) 100%
+);
+.switch {
+  /* existing styles */
+  box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4dvw;
+  width: 100%;
+  height: 100dvh;
+  background-color: #d5d3d22a;
+  flex-wrap: wrap;
+}
+
+.carousel-wrapper {
+  flex: 1;
+  perspective: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.carousel {
+  width: 220px;
+  height: 320px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotate 20s infinite linear;
+}
+
+.carousel.paused {
+  animation-play-state: paused;
+}
+
+.carousel div {
+  position: absolute;
+  width: 180px;
+  height: 160px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #eee;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+  backdrop-filter: blur(4px);
+  text-align: center;
+  padding: 10px;
+}
+
+.carousel div:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+}
+
+.carousel div.selected {
+  border: 2px solid #1e90ff;
+  background: rgba(30, 144, 255, 0.15);
+}
+
+.carousel div:nth-child(1) {
+  transform: rotateY(0deg) translateZ(180px);
+}
+
+.carousel div:nth-child(2) {
+  transform: rotateY(120deg) translateZ(180px);
+}
+
+.carousel div:nth-child(3) {
+  transform: rotateY(240deg) translateZ(180px);
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.switch {
+  box-shadow: rgba(10, 10, 10, 0.26) 1px 1px 20px;
+  border-top-left-radius: 5dvh;
+  border-bottom-right-radius: 5dvh;
+  background: linear-gradient(
+    0deg,
+    rgb(201, 201, 201) 22%,
+    rgba(0, 0, 0, 1) 69%,
+    rgba(9, 9, 20, 1) 79%,
+    rgb(0, 0, 0) 100%
+  );
+  width: 25%;
+  position: relative;
+  top: 4dvh;
+  min-width: 280px;
+}
+
+.Login .title {
+  display: flex;
+  justify-content: center;
+  padding: 0.5em 0;
+  color: white;
+  font-size: 1.1em;
+  font-style: italic;
+}
+
+.Login .item {
+  color: white;
+  font-size: 0.8em;
+  display: flex;
+  padding: 1.2dvh;
+  justify-content: center;
+}
+
+.wrapper {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4dvh;
+  align-items: center;
+  padding: 1em 1em;
+}
+
+.betterOutline::placeholder {
+  font-style: italic;
+}
+
+.betterOutline:focus {
+  --width: 3px;
+  --color: rgb(0 119 72);
+  outline: transparent;
+  box-shadow: 0px var(--width) var(--color);
+}
+
+.betterOutline {
+  font-family: inherit;
+  font-size: 0.8em;
+  color: white;
+  border: none;
+  border-radius: calc((1rem + 1.25rem * 2) / 2);
+  background-color: #333;
+  padding: 0.5rem 1.25rem;
+  box-shadow: none;
+  transition: box-shadow 0.15s;
+  width: 80%;
+}
+
+.Login button {
+  border-radius: 50px;
+  background-color: rgb(1, 1, 1);
+  color: rgb(255, 253, 253);
+  cursor: pointer;
+  font-size: 0.9em;
+  padding: 0.7dvh 1dvw;
+  font-style: italic;
+  letter-spacing: 0.2dvw;
+}
+
+.Login button:hover {
+  box-shadow: rgb(10, 10, 10) 1px 1px 10px;
+  transition: ease-in 0.5s;
+}
+
+.LoginSign {
+  cursor: pointer;
+}
+
+.LoginSign:hover {
+  color: #2e0cefa0;
+  transition: 0.7s ease;
+}
+
+/* Responsive design */
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .carousel-wrapper, .switch {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .carousel {
+    width: 180px;
+    height: 220px;
+  }
+
+  .carousel div {
+    width: 140px;
+    height: 120px;
+  }
+}
