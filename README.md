@@ -1041,8 +1041,84 @@ export class AppComponent {}
 
 ---
 
-This will replicate your entire HTML/CSS/JS design inside one Angular component with full 3D carousel + login form styling + interactivity.
+/* styles.css */
 
-Let me know if you want to split it into separate carousel/login components or add real login logic later!
+/* Global Dark Background */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #121212, #1e1e1e); /* black-blue gradient */
+  color: #fff;
+  height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* General glass panel for containers */
+.container, .glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+}
+
+/* Inputs */
+input {
+  background: #333;
+  border: 1.5px solid #444;
+  color: #eee;
+  padding: 12px;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+input:focus {
+  border-color: #1e90ff;
+  outline: none;
+  background: #2a2a2a;
+}
+
+/* Buttons */
+button {
+  background: #1e90ff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #0f6adf;
+}
+
+/* Carousel item style */
+.carousel div {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #eee;
+  backdrop-filter: blur(4px);
+}
+
+.carousel div.selected {
+  border: 2px solid #1e90ff;
+  background: rgba(30, 144, 255, 0.15);
+}
+
+/* Links */
+a {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
 
 
